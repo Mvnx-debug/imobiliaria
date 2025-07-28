@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Veja os imóveis disponíveis para venda ou aluguel. Casas, apartamentos e muito mais.">
+  <meta name="keywords" content="imóveis, casas, apartamentos, aluguel, venda">
+  <meta name="author" content="Imobiliária Marcos">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="global.css">
+  <title>Imobiliária Premium - Imóveis Selecionados</title>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Imobiliária Premium</h1>
+      <p>Encontre o imóvel dos seus sonhos em nossa seleção exclusiva</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#"><i class="fas fa-home"></i> Início</a></li>
+        <li><a href="#"><i class="fas fa-search"></i> Buscar</a></li>
+        <li><a href="#"><i class="fas fa-envelope"></i> Contato</a></li>
+        <li><a href="#"><i class="fas fa-user"></i> Área do Cliente</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="search-bar">
+    <div class="search-container">
+      <select>
+        <option>Tipo de Imóvel</option>
+        <option>Casa</option>
+        <option>Apartamento</option>
+        <option>Terreno</option>
+      </select>
+      <select>
+        <option>Operação</option>
+        <option>Comprar</option>
+        <option>Alugar</option>
+      </select>
+      <input type="text" placeholder="Localização desejada...">
+      <button><i class="fas fa-search"></i> Buscar</button>
+    </div>
+  </div>
+  
+  <div class="container" id="imoveis">
+    <div class="property-grid">
+      <!-- Os cards de imóveis serão inseridos aqui via JavaScript -->
+    </div>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Sobre Nós</h3>
+        <p>A Imobiliária Premium atua no mercado há 15 anos, oferecendo os melhores imóveis com transparência e excelência.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contato</h3>
+        <p><i class="fas fa-phone"></i> (XX) XXXX-XXXX</p>
+        <p><i class="fas fa-envelope"></i> contato@imobiliariapremium.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234 - Centro</p>
+      </div>
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 Imobiliária Premium. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
