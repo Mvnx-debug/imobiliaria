@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel - Imobiliária XYZ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Imobiliária XYZ</a>
+      <a class="navbar-brand" href="index.html">
+        <i class="bi bi-house-gear"></i> Painel do Corretor
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" id="logout">Sair</a>
+            <a class="nav-link" href="index.html" target="_blank">
+              <i class="bi bi-eye"></i> Ver Site Público
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="logout">
+              <i class="bi bi-box-arrow-right"></i> Sair
+            </a>
           </li>
         </ul>
       </div>
@@ -26,35 +38,73 @@
 
   <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>Meus Imóveis</h1>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPropertyModal">
-        Adicionar Imóvel
+      <h1><i class="bi bi-house-check"></i> Meus Imóveis</h1>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#propertyModal">
+        <i class="bi bi-plus-circle"></i> Adicionar Imóvel
       </button>
     </div>
-    
-    <div class="row" id="my-properties-container">
-      <!-- Imóveis do corretor serão carregados aqui -->
+
+    <!-- Filtros e busca -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" id="filter-type">
+              <option value="">Todos</option>
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="terreno">Terreno</option>
+              <option value="comercial">Comercial</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="filter-status">
+              <option value="">Todos</option>
+              <option value="disponivel">Disponível</option>
+              <option value="vendido">Vendido</option>
+              <option value="alugado">Alugado</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Buscar</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="search-input" placeholder="Título ou endereço">
+              <button class="btn btn-outline-secondary" type="button" id="search-btn">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards de imóveis -->
+    <div class="row" id="properties-container">
+      <!-- Imóveis serão carregados aqui -->
     </div>
   </div>
 
-  <!-- Modal para adicionar imóvel -->
-  <div class="modal fade" id="addPropertyModal" tabindex="-1">
+  <!-- Modal para adicionar/editar imóvel -->
+  <div class="modal fade" id="propertyModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Adicionar Imóvel</h5>
+          <h5 class="modal-title" id="modalTitle">Adicionar Imóvel</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="property-form">
+            <input type="hidden" id="property-id">
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label">Título</label>
-                <input type="text" class="form-control" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Tipo</label>
-                <select class="form-select" name="type" required>
+                <select class="form-select" id="type" name="type" required>
                   <option value="casa">Casa</option>
                   <option value="apartamento">Apartamento</option>
                   <option value="terreno">Terreno</option>
@@ -62,75 +112,96 @@
                 </select>
               </div>
             </div>
-            
+
             <div class="mb-3">
               <label class="form-label">Descrição</label>
-              <textarea class="form-control" name="description" rows="3" required></textarea>
+              <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
             </div>
-            
+
             <div class="row mb-3">
               <div class="col-md-4">
                 <label class="form-label">Preço (R$)</label>
-                <input type="number" class="form-control" name="price" required>
+                <input type="number" class="form-control" id="price" name="price" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label">Quartos</label>
-                <input type="number" class="form-control" name="bedrooms" required>
+                <input type="number" class="form-control" id="bedrooms" name="bedrooms" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label">Banheiros</label>
-                <input type="number" class="form-control" name="bathrooms" required>
+                <input type="number" class="form-control" id="bathrooms" name="bathrooms" required>
               </div>
             </div>
-            
+
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label">Área (m²)</label>
-                <input type="number" class="form-control" name="area" required>
+                <input type="number" class="form-control" id="area" name="area" required>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Vagas na garagem</label>
-                <input type="number" class="form-control" name="garageSpaces" required>
+                <input type="number" class="form-control" id="garageSpaces" name="garageSpaces" required>
               </div>
             </div>
-            
+
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="status" name="status" required>
+                <option value="disponivel">Disponível</option>
+                <option value="vendido">Vendido</option>
+                <option value="alugado">Alugado</option>
+              </select>
+            </div>
+
             <h5 class="mt-4">Endereço</h5>
             <div class="row mb-3">
               <div class="col-md-8">
                 <label class="form-label">Rua</label>
-                <input type="text" class="form-control" name="street" required>
+                <input type="text" class="form-control" id="street" name="street" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label">Número</label>
-                <input type="text" class="form-control" name="number" required>
+                <input type="text" class="form-control" id="number" name="number" required>
               </div>
             </div>
-            
+
             <div class="row mb-3">
               <div class="col-md-5">
                 <label class="form-label">Bairro</label>
-                <input type="text" class="form-control" name="neighborhood" required>
+                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required>
               </div>
               <div class="col-md-5">
                 <label class="form-label">Cidade</label>
-                <input type="text" class="form-control" name="city" required>
+                <input type="text" class="form-control" id="city" name="city" required>
               </div>
               <div class="col-md-2">
                 <label class="form-label">UF</label>
-                <input type="text" class="form-control" name="state" maxlength="2" required>
+                <input type="text" class="form-control" id="state" name="state" maxlength="2" required>
               </div>
             </div>
-            
+
             <div class="mb-3">
               <label class="form-label">CEP</label>
-              <input type="text" class="form-control" name="zipCode" required>
+              <input type="text" class="form-control" id="zipCode" name="zipCode" required>
             </div>
-            
+
             <div class="mb-3">
-              <label class="form-label">Imagens</label>
-              <input type="file" class="form-control" name="images" accept=".png,.jpg,.jpeg" multiple>
+              <label class="form-label">Telefone para contato</label>
+              <input type="text" class="form-control" id="contactPhone" name="contactPhone" required>
             </div>
-            
+
+            <div class="mb-3">
+              <label class="form-label">Imagens atuais</label>
+              <div class="d-flex flex-wrap gap-2" id="current-images">
+                <!-- Imagens atuais serão exibidas aqui -->
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Adicionar novas imagens</label>
+              <input type="file" class="form-control" name="newImages" accept=".png,.jpg,.jpeg" multiple>
+            </div>
+
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
               <button type="submit" class="btn btn-primary">Salvar</button>
@@ -141,7 +212,27 @@
     </div>
   </div>
 
+  <!-- Modal de confirmação -->
+  <div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar ação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p id="confirm-message">Tem certeza que deseja excluir este imóvel?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="confirm-action">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="dashboard.js"></script>
 </body>
+
 </html>

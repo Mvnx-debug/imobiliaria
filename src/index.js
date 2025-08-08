@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authenticate = require('./middleware/auth');
 const upload = require('./middleware/upload');
+const fs = require('fs');
 
 
 dotenv.config();
@@ -16,14 +17,20 @@ app.use(express.json());
 // Conectar ao banco
 connectDB();
 //auth
-app.use('/api/properties', authenticate, require('./routes/properties'));
+app.use('/api/properties', require('./routes/properties'));
 //uploads
-app.use('/upload', express.static(path.join(__dirname, '../upload')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+
+// Criar pasta uploads se não existir
+const uploadPath = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+}
 
 // Servir frontend
 app.use(express.static(path.join(__dirname, '../public')));
-app.use('/upload', express.static(path.join(__dirname, '../upload')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rotas
 app.use('/api', require('./routes/auth'));
